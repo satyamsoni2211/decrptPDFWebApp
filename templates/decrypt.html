@@ -55,15 +55,14 @@
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
                 <form method=post enctype=multipart/form-data> <div class="form-group">
-                    <label for="exampleFormControlFile1">Select File to Decrypt</label>
+                    <label for="exampleFormControlFile1" class='text-center'>Select File to Decrypt</label>
                     <input type="file" class="form-control-file" id="exampleFormControlFile1" name='file'>
-                    <hr class="clearfix" />
+                    <br>
                     <div class="form-group">
                         <label for="password">Enter Password to Decrypt</label>
-                        <input type="text" class="form-control" id="password" placeholder="Example input" name='password'
+                        <input type="password" class="form-control border-top-0 border-left-0 border-right-0" id="password" placeholder="Example input" name='password'
                             onchange="check_password()">
                     </div>
-                    <hr class="clearfix" />
                     <input type=submit value="Decrypt" class="btn btn-dark disabled" id='submit'>
             </div>
             </form>
@@ -111,7 +110,6 @@
             } else {
                 if (!document.getElementById('submit').classList.contains('disabled')) {
                     document.getElementById('submit').classList.add('disabled');
-                    // document.getElementById('passAlerts').style.display = "block";
                 }
                 document.getElementById('passAlerts').innerHTML = `
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
