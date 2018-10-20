@@ -5,10 +5,10 @@ from flask import send_from_directory
 from PyPDF2 import PdfFileReader, PdfFileWriter
 import sys
 
-DECRYPT = '/home/vedika/Documents/utils/decrypt'
 ALLOWED_EXTENSIONS = set(['pdf'])
 
 app = Flask(__name__)
+DECRYPT = os.path.join(app.root_path, 'decrypt')
 app.config['DECRYPT_FOLDER'] = DECRYPT
 
 def decrypt_pdf(input_file, output_path, password):
