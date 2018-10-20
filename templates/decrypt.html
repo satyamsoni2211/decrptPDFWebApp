@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>decrypt PDF File</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <p class="text-center text-uppercase font-weight-bold">Decrypting PDF</p>
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+        </div>
+        {% if filename %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            File <strong>{{ filename }}</strong> Decrypted SuccessFully
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+
+        <!-- alerts for password -->
+        <div id="passAlerts"></div>
+
+        {% if fail %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            File <strong>{{ fail }}</strong> cannot be decrypted ! Please check passowrd !
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        {% if incorrect %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            File <strong>{{ incorrect }}</strong> is not PDF ! Only Pdf Files can be decrypted !
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <form method=post enctype=multipart/form-data> <div class="form-group">
+                    <label for="exampleFormControlFile1">Select File to Decrypt</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name='file'>
+                    <hr class="clearfix" />
+                    <div class="form-group">
+                        <label for="password">Enter Password to Decrypt</label>
+                        <input type="text" class="form-control" id="password" placeholder="Example input" name='password'
+                            onchange="check_password()">
+                    </div>
+                    <hr class="clearfix" />
+                    <input type=submit value="Decrypt" class="btn btn-dark disabled" id='submit'>
+            </div>
+            </form>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            {% if filename %}
+            <div class="card text-center">
+                <div class="card-header">
+                    Featured
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">File has been successfully decrypted</h5>
+                    <p class="card-text">Please click on the below button to download file</p>
+                    <a href="http://127.0.0.1:5000/decrypt/{{ filename }}" target='_blank' class="btn btn-primary">{{
+                        filename }}</a>
+                </div>
+                <div class="card-footer text-muted">
+                    For queries you can contact on satyamsoni@hotmail.co.uk
+                </div>
+            </div>
+            {% endif%}
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <footer class="footer">
+        <div class="footer-copyright py-3">
+            © 2018 Copyright: Satyam Soni
+        </div>
+    </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script>
+        function check_password() {
+            const password = document.getElementById('password').value;
+            console.log(password);
+            if (password.length > 4) {
+                document.getElementById('submit').classList.remove("disabled");
+            } else {
+                if (!document.getElementById('submit').classList.contains('disabled')) {
+                    document.getElementById('submit').classList.add('disabled');
+                    // document.getElementById('passAlerts').style.display = "block";
+                }
+                document.getElementById('passAlerts').innerHTML = `
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Password Should be greater than 4 characters
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>`;
+            }
+        }
+    </script>
+</body>
+
+</html>
