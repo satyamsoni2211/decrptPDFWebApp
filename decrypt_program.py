@@ -52,7 +52,8 @@ def upload_file():
                 # return redirect(url_for('decrypted_file',
                 #                         filename=filename))
                 return render_template('decrypt.html', filename=filename)
-            except:
+            except Exception as e:
+                print e
                 return render_template('decrypt.html', fail=filename)
         if not allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -66,4 +67,4 @@ def decrypted_file(filename):
                                filename)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
